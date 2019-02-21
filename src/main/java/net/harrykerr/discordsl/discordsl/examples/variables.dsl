@@ -1,0 +1,1 @@
+SET b TO "100" AS STRING
