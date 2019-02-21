@@ -18,6 +18,66 @@ public interface discordslListener extends ParseTreeListener {
 	 */
 	void exitStart(discordslParser.StartContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link discordslParser#settings}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettings(discordslParser.SettingsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#settings}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettings(discordslParser.SettingsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#game}.
+	 * @param ctx the parse tree
+	 */
+	void enterGame(discordslParser.GameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#game}.
+	 * @param ctx the parse tree
+	 */
+	void exitGame(discordslParser.GameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#enable_help}.
+	 * @param ctx the parse tree
+	 */
+	void enterEnable_help(discordslParser.Enable_helpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#enable_help}.
+	 * @param ctx the parse tree
+	 */
+	void exitEnable_help(discordslParser.Enable_helpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#status}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatus(discordslParser.StatusContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#status}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatus(discordslParser.StatusContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#command_prefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterCommand_prefix(discordslParser.Command_prefixContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#command_prefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitCommand_prefix(discordslParser.Command_prefixContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#token}.
+	 * @param ctx the parse tree
+	 */
+	void enterToken(discordslParser.TokenContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#token}.
+	 * @param ctx the parse tree
+	 */
+	void exitToken(discordslParser.TokenContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link discordslParser#statements}.
 	 * @param ctx the parse tree
 	 */
@@ -37,6 +97,16 @@ public interface discordslListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSay(discordslParser.SayContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#maths_equations}.
+	 * @param ctx the parse tree
+	 */
+	void enterMaths_equations(discordslParser.Maths_equationsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#maths_equations}.
+	 * @param ctx the parse tree
+	 */
+	void exitMaths_equations(discordslParser.Maths_equationsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link discordslParser#variable}.
 	 * @param ctx the parse tree

@@ -1,7 +1,12 @@
 package net.harrykerr.discordsl.discordsl;
 
+import net.harrykerr.discordsl.discordsl.errors.TypeNotFound;
 import net.harrykerr.discordsl.discordsl.grammars.discordslListener;
 import net.harrykerr.discordsl.discordsl.grammars.discordslParser;
+import net.harrykerr.discordsl.discordsl.parsing.ParseMath;
+import net.harrykerr.discordsl.discordsl.types.Variable;
+import net.harrykerr.discordsl.discordsl.types.impl.NumberVariable;
+import net.harrykerr.discordsl.discordsl.types.impl.Settings;
 import net.harrykerr.discordsl.discordsl.types.impl.StringVariable;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -12,15 +17,82 @@ import java.util.List;
 
 public class DiscordSLWalker implements discordslListener {
 
-    List<StringVariable> stringVariables = new ArrayList<>();
+    List<Variable> variables = new ArrayList<>();
+    Settings settings;
 
     @Override
     public void enterStart(discordslParser.StartContext ctx) {
-        System.out.println("Started");
+        //System.out.println("Started");
     }
 
     @Override
     public void exitStart(discordslParser.StartContext ctx) {
+
+    }
+
+    @Override
+    public void enterSettings(discordslParser.SettingsContext ctx) {
+        String token = ctx.token().NORMALSTRING().getText();
+        String comamndPrefix = ctx.command_prefix().NORMALSTRING().getText();
+        String enableHelp = ctx.enable_help().NORMALSTRING().getText();
+        String status = ctx.status().NORMALSTRING().getText();
+        String game = ctx.game().NORMALSTRING().getText();
+
+        Settings Settings = new Settings(token, comamndPrefix, enableHelp, status, game);
+    }
+
+    @Override
+    public void exitSettings(discordslParser.SettingsContext ctx) {
+
+    }
+
+    @Override
+    public void enterGame(discordslParser.GameContext ctx) {
+
+    }
+
+    @Override
+    public void exitGame(discordslParser.GameContext ctx) {
+
+    }
+
+    @Override
+    public void enterEnable_help(discordslParser.Enable_helpContext ctx) {
+
+    }
+
+    @Override
+    public void exitEnable_help(discordslParser.Enable_helpContext ctx) {
+
+    }
+
+    @Override
+    public void enterStatus(discordslParser.StatusContext ctx) {
+
+    }
+
+    @Override
+    public void exitStatus(discordslParser.StatusContext ctx) {
+
+    }
+
+    @Override
+    public void enterToken(discordslParser.TokenContext ctx) {
+
+    }
+
+    @Override
+    public void exitToken(discordslParser.TokenContext ctx) {
+
+    }
+
+    @Override
+    public void enterCommand_prefix(discordslParser.Command_prefixContext ctx) {
+
+    }
+
+    @Override
+    public void exitCommand_prefix(discordslParser.Command_prefixContext ctx) {
 
     }
 
@@ -40,10 +112,22 @@ public class DiscordSLWalker implements discordslListener {
         boolean isNormal = ctx.LetterOrDigit() == null;
         String value = "";
         if(!isNormal){
-            value = variableByName(ctx.LetterOrDigit().getText()).value;
-            System.out.println( value );
+            //System.out.println(ctx.LetterOrDigit());
+            if(doesVariableExist(ctx.LetterOrDigit().toString())) {
+                Variable type = variableByName(ctx.LetterOrDigit().getText());
+                if(type.type.equals("string")){
+                    value = String.valueOf(type.value).substring(1,String.valueOf(type.value).length()-1);
+
+                }else if(type.type.equals("number")){
+                    value = String.valueOf(type.value);
+
+                }
+
+            }
+            System.out.println(value);
         }else{
-            System.out.println( ctx.NORMALSTRING().getText().replaceAll("\\\\", ""));
+            System.out.println( ctx.NORMALSTRING().getText().replaceAll("\\\\", "")
+                    .substring(1,String.valueOf(ctx.NORMALSTRING().getText()).length()-1));
         }
 
     }
@@ -54,11 +138,42 @@ public class DiscordSLWalker implements discordslListener {
     }
 
     @Override
+    public void enterMaths_equations(discordslParser.Maths_equationsContext ctx) {
+
+        //ParseMath.result(ctx);
+
+    }
+
+    @Override
+    public void exitMaths_equations(discordslParser.Maths_equationsContext ctx) {
+
+    }
+
+    @Override
     public void enterVariable(discordslParser.VariableContext ctx) {
-        String text = ctx.identifier().LetterOrDigit().getText();
-        String value = ctx.var_value().NORMALSTRING().getText();
-        StringVariable vars = new StringVariable(value, text);
-        stringVariables.add(vars);
+        String type = ctx.type().getText();
+        if(type.equals("number")){
+            //System.out.println("Got Here");
+            String text = ctx.identifier().LetterOrDigit().getText();
+            float value = Float.parseFloat(ctx.var_value().Digits().getText());
+            NumberVariable vars = new NumberVariable(value, text);
+            variables.add(vars);
+            //System.out.println(text);
+        }
+        else if(type.equals("string")) {
+            String text = ctx.identifier().LetterOrDigit().getText();
+            String value = ctx.var_value().NORMALSTRING().getText();
+            StringVariable vars = new StringVariable(value, text);
+            variables.add(vars);
+        }
+        else{
+            try {
+                throw new TypeNotFound();
+            } catch (TypeNotFound ex){
+                ex.printStackTrace();
+            }
+
+        }
     }
 
     @Override
@@ -136,14 +251,25 @@ public class DiscordSLWalker implements discordslListener {
 
     }
 
-    public StringVariable variableByName(String ident){
-        for(StringVariable var : stringVariables){
+    public Variable variableByName(String ident){
+        for(Variable var : variables){
             if(var.identity.equals(ident)){
                 return var;
             }
 
         }
         return null;
+    }
+
+    public boolean doesVariableExist(String ident){
+        for(Variable var : variables){
+            if(var.identity.equals(ident)){
+                return true;
+            }
+
+        }
+        return false;
+
     }
 
 }

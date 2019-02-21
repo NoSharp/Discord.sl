@@ -1,1 +1,1 @@
-SET b TO "100" AS STRING
+set aa to "b" as string

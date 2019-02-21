@@ -1,13 +1,43 @@
 grammar discordsl;
 
-
 start
-    : EVENT 'start ()' statements+
+    : 'settings:'
+      settings
+      statements+
     ;
+
+settings:
+    'token:' token
+    'command_prefix:' command_prefix
+    'enable_help:' enable_help
+    'status:' status
+    'game:' game
+    ;
+
+game:
+    NORMALSTRING
+    ;
+
+enable_help:
+    NORMALSTRING
+    ;
+
+status:
+    NORMALSTRING
+    ;
+command_prefix:
+    NORMALSTRING
+    ;
+
+token:
+    NORMALSTRING
+    ;
+
 
 statements
     : variable
     | say
+    | maths_equations
     ;
 
 say
@@ -15,6 +45,14 @@ say
     | 'say' NORMALSTRING
     | 'say' LetterOrDigit
     ;
+
+maths_equations
+    : Digits operators Digits
+    | maths_equations operators maths_equations
+    | Digits operators maths_equations
+    | maths_equations operators Digits
+    ;
+
 
 /**
 comparator
@@ -40,7 +78,6 @@ function
 
 variable
     : SET identifier TO var_value AS type
-    | SET identifier TO var_value AS type
     ;
 
 identifier
@@ -127,6 +164,7 @@ LetterOrDigit
     ;
 
 Letters: [a-zA-Z_]+ ;
+
 LABEL
    : ('a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_') +
    ;
