@@ -17,11 +17,11 @@ public class Main {
         System.out.println("WORKS");
         try {
             discordslLexer lexer = new discordslLexer(
-                    new ANTLRFileStream(EXAMPLES_PATH + "\\variables.dsl"));
+                    new ANTLRFileStream(EXAMPLES_PATH + "\\say.dsl"));
 
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             discordslParser parser = new discordslParser(tokens);
-            ParseTree tree = parser.variable();
+            ParseTree tree = parser.start();
             ParseTreeWalker walker = new ParseTreeWalker();
             walker.walk((ParseTreeListener) new DiscordSLWalker(), tree);
         } catch (IOException e) {

@@ -18,34 +18,34 @@ public class discordslParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, SET=11, TO=12, EVENT=13, STRING_TYPE=14, INTEGER=15, DECIMAL=16, 
-		IF=17, WHILE=18, SETTINGS=19, ENDIF=20, ENDWHILE=21, VAR=22, VAR_ASSIGN=23, 
-		ELSE=24, FOR=25, ENDFOR=26, EXIT=27, START_BOT=28, COMMAND=29, RETURN=30, 
-		SWITCH=31, CASE=32, THEN=33, RETURNS=34, VOID=35, NULL=36, SAY=37, AS=38, 
-		SPEECH=39, WS=40, NL=41, COMMENT=42, LINE_COMMENT=43, Digits=44, LetterOrDigit=45, 
-		Letters=46, LABEL=47, EOL=48, NORMALSTRING=49;
+		T__9=10, T__10=11, SET=12, TO=13, EVENT=14, STRING_TYPE=15, INTEGER=16, 
+		DECIMAL=17, IF=18, WHILE=19, SETTINGS=20, ENDIF=21, ENDWHILE=22, VAR=23, 
+		VAR_ASSIGN=24, ELSE=25, FOR=26, ENDFOR=27, EXIT=28, START_BOT=29, COMMAND=30, 
+		RETURN=31, SWITCH=32, CASE=33, THEN=34, RETURNS=35, VOID=36, NULL=37, 
+		SAY=38, AS=39, SPEECH=40, WS=41, NL=42, COMMENT=43, LINE_COMMENT=44, Digits=45, 
+		LetterOrDigit=46, Letters=47, LABEL=48, EOL=49, NORMALSTRING=50;
 	public static final int
-		RULE_program = 0, RULE_statement = 1, RULE_comparator = 2, RULE_if_statements = 3, 
-		RULE_math_expr = 4, RULE_function = 5, RULE_variable = 6, RULE_type = 7, 
-		RULE_operators = 8, RULE_comparators = 9;
+		RULE_start = 0, RULE_statements = 1, RULE_say = 2, RULE_variable = 3, 
+		RULE_identifier = 4, RULE_var_value = 5, RULE_type = 6, RULE_operators = 7, 
+		RULE_comparators = 8;
 	public static final String[] ruleNames = {
-		"program", "statement", "comparator", "if_statements", "math_expr", "function", 
-		"variable", "type", "operators", "comparators"
+		"start", "statements", "say", "variable", "identifier", "var_value", "type", 
+		"operators", "comparators"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'*'", "'/'", "'+'", "'-'", "'**'", "'<'", "'>'", "'>='", "'<='", 
-		"'=='", null, null, "'on'", "'string'", "'number'", "'decimal'", "'if'", 
-		"'while'", "'settings'", "'endif'", "'endwhile'", null, null, "'else'", 
-		"'for'", "'endfor'", "'exit'", "'start'", "'command'", "'out'", "'switch'", 
-		"'case'", "'then'", "'returns'", "'nothing'", "'empty'", "'say'", "'as'", 
-		"'\"'"
+		null, "'start ()'", "'*'", "'/'", "'+'", "'-'", "'**'", "'<'", "'>'", 
+		"'>='", "'<='", "'=='", null, null, "'on'", "'string'", "'number'", "'decimal'", 
+		"'if'", "'while'", "'settings'", "'endif'", "'endwhile'", null, null, 
+		"'else'", "'for'", "'endfor'", "'exit'", "'start'", "'command'", "'out'", 
+		"'switch'", "'case'", "'then'", "'returns'", "'nothing'", "'empty'", "'say'", 
+		"'as'", "'\"'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, null, null, null, null, null, null, "SET", 
-		"TO", "EVENT", "STRING_TYPE", "INTEGER", "DECIMAL", "IF", "WHILE", "SETTINGS", 
-		"ENDIF", "ENDWHILE", "VAR", "VAR_ASSIGN", "ELSE", "FOR", "ENDFOR", "EXIT", 
-		"START_BOT", "COMMAND", "RETURN", "SWITCH", "CASE", "THEN", "RETURNS", 
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		"SET", "TO", "EVENT", "STRING_TYPE", "INTEGER", "DECIMAL", "IF", "WHILE", 
+		"SETTINGS", "ENDIF", "ENDWHILE", "VAR", "VAR_ASSIGN", "ELSE", "FOR", "ENDFOR", 
+		"EXIT", "START_BOT", "COMMAND", "RETURN", "SWITCH", "CASE", "THEN", "RETURNS", 
 		"VOID", "NULL", "SAY", "AS", "SPEECH", "WS", "NL", "COMMENT", "LINE_COMMENT", 
 		"Digits", "LetterOrDigit", "Letters", "LABEL", "EOL", "NORMALSTRING"
 	};
@@ -98,150 +98,53 @@ public class discordslParser extends Parser {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
-	public static class ProgramContext extends ParserRuleContext {
-		public StatementContext statement() {
-			return getRuleContext(StatementContext.class,0);
+	public static class StartContext extends ParserRuleContext {
+		public TerminalNode EVENT() { return getToken(discordslParser.EVENT, 0); }
+		public List<StatementsContext> statements() {
+			return getRuleContexts(StatementsContext.class);
 		}
-		public If_statementsContext if_statements() {
-			return getRuleContext(If_statementsContext.class,0);
+		public StatementsContext statements(int i) {
+			return getRuleContext(StatementsContext.class,i);
 		}
-		public ProgramContext(ParserRuleContext parent, int invokingState) {
+		public StartContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_program; }
+		@Override public int getRuleIndex() { return RULE_start; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof discordslListener ) ((discordslListener)listener).enterProgram(this);
+			if ( listener instanceof discordslListener ) ((discordslListener)listener).enterStart(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof discordslListener ) ((discordslListener)listener).exitProgram(this);
+			if ( listener instanceof discordslListener ) ((discordslListener)listener).exitStart(this);
 		}
 	}
 
-	public final ProgramContext program() throws RecognitionException {
-		ProgramContext _localctx = new ProgramContext(_ctx, getState());
-		enterRule(_localctx, 0, RULE_program);
-		try {
-			setState(22);
-			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(20);
-				statement();
-				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(21);
-				if_statements();
-				}
-				break;
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class StatementContext extends ParserRuleContext {
-		public VariableContext variable() {
-			return getRuleContext(VariableContext.class,0);
-		}
-		public Math_exprContext math_expr() {
-			return getRuleContext(Math_exprContext.class,0);
-		}
-		public StatementContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_statement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof discordslListener ) ((discordslListener)listener).enterStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof discordslListener ) ((discordslListener)listener).exitStatement(this);
-		}
-	}
-
-	public final StatementContext statement() throws RecognitionException {
-		StatementContext _localctx = new StatementContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_statement);
-		try {
-			setState(26);
-			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(24);
-				variable();
-				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(25);
-				math_expr();
-				}
-				break;
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class ComparatorContext extends ParserRuleContext {
-		public List<TerminalNode> Digits() { return getTokens(discordslParser.Digits); }
-		public TerminalNode Digits(int i) {
-			return getToken(discordslParser.Digits, i);
-		}
-		public ComparatorContext comparator() {
-			return getRuleContext(ComparatorContext.class,0);
-		}
-		public ComparatorContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_comparator; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof discordslListener ) ((discordslListener)listener).enterComparator(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof discordslListener ) ((discordslListener)listener).exitComparator(this);
-		}
-	}
-
-	public final ComparatorContext comparator() throws RecognitionException {
-		ComparatorContext _localctx = new ComparatorContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_comparator);
+	public final StartContext start() throws RecognitionException {
+		StartContext _localctx = new StartContext(_ctx, getState());
+		enterRule(_localctx, 0, RULE_start);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(28);
-			match(Digits);
-			setState(29);
-			comparator();
-			setState(30);
-			match(Digits);
+			setState(18);
+			match(EVENT);
+			setState(19);
+			match(T__0);
+			setState(21); 
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			do {
+				{
+				{
+				setState(20);
+				statements();
+				}
+				}
+				setState(23); 
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			} while ( _la==SET || _la==SAY );
 			}
 		}
 		catch (RecognitionException re) {
@@ -255,181 +158,117 @@ public class discordslParser extends Parser {
 		return _localctx;
 	}
 
-	public static class If_statementsContext extends ParserRuleContext {
-		public TerminalNode IF() { return getToken(discordslParser.IF, 0); }
-		public ComparatorContext comparator() {
-			return getRuleContext(ComparatorContext.class,0);
+	public static class StatementsContext extends ParserRuleContext {
+		public VariableContext variable() {
+			return getRuleContext(VariableContext.class,0);
 		}
-		public TerminalNode THEN() { return getToken(discordslParser.THEN, 0); }
-		public StatementContext statement() {
-			return getRuleContext(StatementContext.class,0);
+		public SayContext say() {
+			return getRuleContext(SayContext.class,0);
 		}
-		public TerminalNode ENDIF() { return getToken(discordslParser.ENDIF, 0); }
-		public If_statementsContext(ParserRuleContext parent, int invokingState) {
+		public StatementsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_if_statements; }
+		@Override public int getRuleIndex() { return RULE_statements; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof discordslListener ) ((discordslListener)listener).enterIf_statements(this);
+			if ( listener instanceof discordslListener ) ((discordslListener)listener).enterStatements(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof discordslListener ) ((discordslListener)listener).exitIf_statements(this);
+			if ( listener instanceof discordslListener ) ((discordslListener)listener).exitStatements(this);
 		}
 	}
 
-	public final If_statementsContext if_statements() throws RecognitionException {
-		If_statementsContext _localctx = new If_statementsContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_if_statements);
+	public final StatementsContext statements() throws RecognitionException {
+		StatementsContext _localctx = new StatementsContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_statements);
 		try {
-			setState(39);
+			setState(27);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case EOF:
+			case SET:
 				enterOuterAlt(_localctx, 1);
 				{
+				setState(25);
+				variable();
 				}
 				break;
-			case IF:
+			case SAY:
 				enterOuterAlt(_localctx, 2);
+				{
+				setState(26);
+				say();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class SayContext extends ParserRuleContext {
+		public StatementsContext statements() {
+			return getRuleContext(StatementsContext.class,0);
+		}
+		public TerminalNode NORMALSTRING() { return getToken(discordslParser.NORMALSTRING, 0); }
+		public TerminalNode LetterOrDigit() { return getToken(discordslParser.LetterOrDigit, 0); }
+		public SayContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_say; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof discordslListener ) ((discordslListener)listener).enterSay(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof discordslListener ) ((discordslListener)listener).exitSay(this);
+		}
+	}
+
+	public final SayContext say() throws RecognitionException {
+		SayContext _localctx = new SayContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_say);
+		try {
+			setState(35);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(29);
+				match(SAY);
+				setState(30);
+				statements();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(31);
+				match(SAY);
+				setState(32);
+				match(NORMALSTRING);
+				}
+				break;
+			case 3:
+				enterOuterAlt(_localctx, 3);
 				{
 				setState(33);
-				match(IF);
+				match(SAY);
 				setState(34);
-				comparator();
-				setState(35);
-				match(THEN);
-				setState(36);
-				statement();
-				setState(37);
-				match(ENDIF);
+				match(LetterOrDigit);
 				}
 				break;
-			default:
-				throw new NoViableAltException(this);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class Math_exprContext extends ParserRuleContext {
-		public List<TerminalNode> Digits() { return getTokens(discordslParser.Digits); }
-		public TerminalNode Digits(int i) {
-			return getToken(discordslParser.Digits, i);
-		}
-		public OperatorsContext operators() {
-			return getRuleContext(OperatorsContext.class,0);
-		}
-		public Math_exprContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_math_expr; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof discordslListener ) ((discordslListener)listener).enterMath_expr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof discordslListener ) ((discordslListener)listener).exitMath_expr(this);
-		}
-	}
-
-	public final Math_exprContext math_expr() throws RecognitionException {
-		Math_exprContext _localctx = new Math_exprContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_math_expr);
-		try {
-			setState(46);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case EOF:
-			case ENDIF:
-				enterOuterAlt(_localctx, 1);
-				{
-				}
-				break;
-			case Digits:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(42);
-				match(Digits);
-				setState(43);
-				operators();
-				setState(44);
-				match(Digits);
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class FunctionContext extends ParserRuleContext {
-		public TerminalNode EVENT() { return getToken(discordslParser.EVENT, 0); }
-		public TerminalNode Letters() { return getToken(discordslParser.Letters, 0); }
-		public TerminalNode THEN() { return getToken(discordslParser.THEN, 0); }
-		public StatementContext statement() {
-			return getRuleContext(StatementContext.class,0);
-		}
-		public FunctionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_function; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof discordslListener ) ((discordslListener)listener).enterFunction(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof discordslListener ) ((discordslListener)listener).exitFunction(this);
-		}
-	}
-
-	public final FunctionContext function() throws RecognitionException {
-		FunctionContext _localctx = new FunctionContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_function);
-		try {
-			setState(53);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case EOF:
-				enterOuterAlt(_localctx, 1);
-				{
-				}
-				break;
-			case EVENT:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(49);
-				match(EVENT);
-				setState(50);
-				match(Letters);
-				setState(51);
-				match(THEN);
-				setState(52);
-				statement();
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -445,14 +284,17 @@ public class discordslParser extends Parser {
 
 	public static class VariableContext extends ParserRuleContext {
 		public TerminalNode SET() { return getToken(discordslParser.SET, 0); }
-		public TerminalNode LetterOrDigit() { return getToken(discordslParser.LetterOrDigit, 0); }
+		public IdentifierContext identifier() {
+			return getRuleContext(IdentifierContext.class,0);
+		}
 		public TerminalNode TO() { return getToken(discordslParser.TO, 0); }
-		public TerminalNode Digits() { return getToken(discordslParser.Digits, 0); }
+		public Var_valueContext var_value() {
+			return getRuleContext(Var_valueContext.class,0);
+		}
 		public TerminalNode AS() { return getToken(discordslParser.AS, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
-		public TerminalNode NORMALSTRING() { return getToken(discordslParser.NORMALSTRING, 0); }
 		public VariableContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -469,50 +311,129 @@ public class discordslParser extends Parser {
 
 	public final VariableContext variable() throws RecognitionException {
 		VariableContext _localctx = new VariableContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_variable);
+		enterRule(_localctx, 6, RULE_variable);
 		try {
-			setState(68);
+			setState(51);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
+				setState(37);
+				match(SET);
+				setState(38);
+				identifier();
+				setState(39);
+				match(TO);
+				setState(40);
+				var_value();
+				setState(41);
+				match(AS);
+				setState(42);
+				type();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(56);
+				setState(44);
 				match(SET);
-				setState(57);
-				match(LetterOrDigit);
-				setState(58);
+				setState(45);
+				identifier();
+				setState(46);
 				match(TO);
-				setState(59);
-				match(Digits);
-				setState(60);
+				setState(47);
+				var_value();
+				setState(48);
 				match(AS);
-				setState(61);
+				setState(49);
 				type();
 				}
 				break;
-			case 3:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(62);
-				match(SET);
-				setState(63);
-				match(LetterOrDigit);
-				setState(64);
-				match(TO);
-				setState(65);
-				match(NORMALSTRING);
-				setState(66);
-				match(AS);
-				setState(67);
-				type();
-				}
-				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class IdentifierContext extends ParserRuleContext {
+		public TerminalNode LetterOrDigit() { return getToken(discordslParser.LetterOrDigit, 0); }
+		public IdentifierContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_identifier; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof discordslListener ) ((discordslListener)listener).enterIdentifier(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof discordslListener ) ((discordslListener)listener).exitIdentifier(this);
+		}
+	}
+
+	public final IdentifierContext identifier() throws RecognitionException {
+		IdentifierContext _localctx = new IdentifierContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_identifier);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(53);
+			match(LetterOrDigit);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Var_valueContext extends ParserRuleContext {
+		public TerminalNode Digits() { return getToken(discordslParser.Digits, 0); }
+		public TerminalNode NORMALSTRING() { return getToken(discordslParser.NORMALSTRING, 0); }
+		public Var_valueContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_var_value; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof discordslListener ) ((discordslListener)listener).enterVar_value(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof discordslListener ) ((discordslListener)listener).exitVar_value(this);
+		}
+	}
+
+	public final Var_valueContext var_value() throws RecognitionException {
+		Var_valueContext _localctx = new Var_valueContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_var_value);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(55);
+			_la = _input.LA(1);
+			if ( !(_la==Digits || _la==NORMALSTRING) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -543,13 +464,14 @@ public class discordslParser extends Parser {
 
 	public final TypeContext type() throws RecognitionException {
 		TypeContext _localctx = new TypeContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_type);
+		enterRule(_localctx, 12, RULE_type);
 		try {
-			setState(73);
+			setState(60);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case EOF:
-			case ENDIF:
+			case SET:
+			case SAY:
 				enterOuterAlt(_localctx, 1);
 				{
 				}
@@ -557,14 +479,14 @@ public class discordslParser extends Parser {
 			case STRING_TYPE:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(71);
+				setState(58);
 				match(STRING_TYPE);
 				}
 				break;
 			case INTEGER:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(72);
+				setState(59);
 				match(INTEGER);
 				}
 				break;
@@ -600,14 +522,14 @@ public class discordslParser extends Parser {
 
 	public final OperatorsContext operators() throws RecognitionException {
 		OperatorsContext _localctx = new OperatorsContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_operators);
+		enterRule(_localctx, 14, RULE_operators);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(75);
+			setState(62);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << T__3) | (1L << T__4))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__2) | (1L << T__3) | (1L << T__4) | (1L << T__5))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -645,14 +567,14 @@ public class discordslParser extends Parser {
 
 	public final ComparatorsContext comparators() throws RecognitionException {
 		ComparatorsContext _localctx = new ComparatorsContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_comparators);
+		enterRule(_localctx, 16, RULE_comparators);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(77);
+			setState(64);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -674,26 +596,23 @@ public class discordslParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\63R\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\3"+
-		"\2\3\2\5\2\31\n\2\3\3\3\3\5\3\35\n\3\3\4\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3"+
-		"\5\3\5\3\5\5\5*\n\5\3\6\3\6\3\6\3\6\3\6\5\6\61\n\6\3\7\3\7\3\7\3\7\3\7"+
-		"\5\78\n\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\bG\n\b"+
-		"\3\t\3\t\3\t\5\tL\n\t\3\n\3\n\3\13\3\13\3\13\2\2\f\2\4\6\b\n\f\16\20\22"+
-		"\24\2\4\3\2\3\7\3\2\b\f\2P\2\30\3\2\2\2\4\34\3\2\2\2\6\36\3\2\2\2\b)\3"+
-		"\2\2\2\n\60\3\2\2\2\f\67\3\2\2\2\16F\3\2\2\2\20K\3\2\2\2\22M\3\2\2\2\24"+
-		"O\3\2\2\2\26\31\5\4\3\2\27\31\5\b\5\2\30\26\3\2\2\2\30\27\3\2\2\2\31\3"+
-		"\3\2\2\2\32\35\5\16\b\2\33\35\5\n\6\2\34\32\3\2\2\2\34\33\3\2\2\2\35\5"+
-		"\3\2\2\2\36\37\7.\2\2\37 \5\6\4\2 !\7.\2\2!\7\3\2\2\2\"*\3\2\2\2#$\7\23"+
-		"\2\2$%\5\6\4\2%&\7#\2\2&\'\5\4\3\2\'(\7\26\2\2(*\3\2\2\2)\"\3\2\2\2)#"+
-		"\3\2\2\2*\t\3\2\2\2+\61\3\2\2\2,-\7.\2\2-.\5\22\n\2./\7.\2\2/\61\3\2\2"+
-		"\2\60+\3\2\2\2\60,\3\2\2\2\61\13\3\2\2\2\628\3\2\2\2\63\64\7\17\2\2\64"+
-		"\65\7\60\2\2\65\66\7#\2\2\668\5\4\3\2\67\62\3\2\2\2\67\63\3\2\2\28\r\3"+
-		"\2\2\29G\3\2\2\2:;\7\r\2\2;<\7/\2\2<=\7\16\2\2=>\7.\2\2>?\7(\2\2?G\5\20"+
-		"\t\2@A\7\r\2\2AB\7/\2\2BC\7\16\2\2CD\7\63\2\2DE\7(\2\2EG\5\20\t\2F9\3"+
-		"\2\2\2F:\3\2\2\2F@\3\2\2\2G\17\3\2\2\2HL\3\2\2\2IL\7\20\2\2JL\7\21\2\2"+
-		"KH\3\2\2\2KI\3\2\2\2KJ\3\2\2\2L\21\3\2\2\2MN\t\2\2\2N\23\3\2\2\2OP\t\3"+
-		"\2\2P\25\3\2\2\2\t\30\34)\60\67FK";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\64E\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\3\2\3\2\3\2"+
+		"\6\2\30\n\2\r\2\16\2\31\3\3\3\3\5\3\36\n\3\3\4\3\4\3\4\3\4\3\4\3\4\5\4"+
+		"&\n\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5\66\n"+
+		"\5\3\6\3\6\3\7\3\7\3\b\3\b\3\b\5\b?\n\b\3\t\3\t\3\n\3\n\3\n\2\2\13\2\4"+
+		"\6\b\n\f\16\20\22\2\5\4\2//\64\64\3\2\4\b\3\2\t\r\2B\2\24\3\2\2\2\4\35"+
+		"\3\2\2\2\6%\3\2\2\2\b\65\3\2\2\2\n\67\3\2\2\2\f9\3\2\2\2\16>\3\2\2\2\20"+
+		"@\3\2\2\2\22B\3\2\2\2\24\25\7\20\2\2\25\27\7\3\2\2\26\30\5\4\3\2\27\26"+
+		"\3\2\2\2\30\31\3\2\2\2\31\27\3\2\2\2\31\32\3\2\2\2\32\3\3\2\2\2\33\36"+
+		"\5\b\5\2\34\36\5\6\4\2\35\33\3\2\2\2\35\34\3\2\2\2\36\5\3\2\2\2\37 \7"+
+		"(\2\2 &\5\4\3\2!\"\7(\2\2\"&\7\64\2\2#$\7(\2\2$&\7\60\2\2%\37\3\2\2\2"+
+		"%!\3\2\2\2%#\3\2\2\2&\7\3\2\2\2\'(\7\16\2\2()\5\n\6\2)*\7\17\2\2*+\5\f"+
+		"\7\2+,\7)\2\2,-\5\16\b\2-\66\3\2\2\2./\7\16\2\2/\60\5\n\6\2\60\61\7\17"+
+		"\2\2\61\62\5\f\7\2\62\63\7)\2\2\63\64\5\16\b\2\64\66\3\2\2\2\65\'\3\2"+
+		"\2\2\65.\3\2\2\2\66\t\3\2\2\2\678\7\60\2\28\13\3\2\2\29:\t\2\2\2:\r\3"+
+		"\2\2\2;?\3\2\2\2<?\7\21\2\2=?\7\22\2\2>;\3\2\2\2><\3\2\2\2>=\3\2\2\2?"+
+		"\17\3\2\2\2@A\t\3\2\2A\21\3\2\2\2BC\t\4\2\2C\23\3\2\2\2\7\31\35%\65>";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

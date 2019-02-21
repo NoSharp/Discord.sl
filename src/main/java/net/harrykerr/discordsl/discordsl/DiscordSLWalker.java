@@ -2,80 +2,88 @@ package net.harrykerr.discordsl.discordsl;
 
 import net.harrykerr.discordsl.discordsl.grammars.discordslListener;
 import net.harrykerr.discordsl.discordsl.grammars.discordslParser;
+import net.harrykerr.discordsl.discordsl.types.impl.StringVariable;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DiscordSLWalker implements discordslListener {
 
+    List<StringVariable> stringVariables = new ArrayList<>();
+
     @Override
-    public void enterProgram(discordslParser.ProgramContext ctx) {
+    public void enterStart(discordslParser.StartContext ctx) {
+        System.out.println("Started");
+    }
+
+    @Override
+    public void exitStart(discordslParser.StartContext ctx) {
 
     }
 
     @Override
-    public void exitProgram(discordslParser.ProgramContext ctx) {
+    public void enterStatements(discordslParser.StatementsContext ctx) {
 
     }
 
     @Override
-    public void enterStatement(discordslParser.StatementContext ctx) {
+    public void exitStatements(discordslParser.StatementsContext ctx) {
 
     }
 
     @Override
-    public void exitStatement(discordslParser.StatementContext ctx) {
+    public void enterSay(discordslParser.SayContext ctx) {
+        //System.out.println("ENTERED SAY.");
+        boolean isNormal = ctx.LetterOrDigit() == null;
+        String value = "";
+        if(!isNormal){
+            value = variableByName(ctx.LetterOrDigit().getText()).value;
+            System.out.println( value );
+        }else{
+            System.out.println( ctx.NORMALSTRING().getText().replaceAll("\\\\", ""));
+        }
 
     }
 
     @Override
-    public void enterComparator(discordslParser.ComparatorContext ctx) {
-
-    }
-
-    @Override
-    public void exitComparator(discordslParser.ComparatorContext ctx) {
-
-    }
-
-    @Override
-    public void enterIf_statements(discordslParser.If_statementsContext ctx) {
-
-    }
-
-    @Override
-    public void exitIf_statements(discordslParser.If_statementsContext ctx) {
-
-    }
-
-    @Override
-    public void enterMath_expr(discordslParser.Math_exprContext ctx) {
-
-    }
-
-    @Override
-    public void exitMath_expr(discordslParser.Math_exprContext ctx) {
-
-    }
-
-    @Override
-    public void enterFunction(discordslParser.FunctionContext ctx) {
-
-    }
-
-    @Override
-    public void exitFunction(discordslParser.FunctionContext ctx) {
+    public void exitSay(discordslParser.SayContext ctx) {
 
     }
 
     @Override
     public void enterVariable(discordslParser.VariableContext ctx) {
-
+        String text = ctx.identifier().LetterOrDigit().getText();
+        String value = ctx.var_value().NORMALSTRING().getText();
+        StringVariable vars = new StringVariable(value, text);
+        stringVariables.add(vars);
     }
 
     @Override
     public void exitVariable(discordslParser.VariableContext ctx) {
-        ParserRuleContext context = ctx.getParent();
+
+    }
+
+    @Override
+    public void enterIdentifier(discordslParser.IdentifierContext ctx) {
+
+    }
+
+    @Override
+    public void exitIdentifier(discordslParser.IdentifierContext ctx) {
+
+    }
+
+    @Override
+    public void enterVar_value(discordslParser.Var_valueContext ctx) {
+
+    }
+
+    @Override
+    public void exitVar_value(discordslParser.Var_valueContext ctx) {
+
     }
 
     @Override
@@ -127,4 +135,15 @@ public class DiscordSLWalker implements discordslListener {
     public void exitEveryRule(ParserRuleContext parserRuleContext) {
 
     }
+
+    public StringVariable variableByName(String ident){
+        for(StringVariable var : stringVariables){
+            if(var.identity.equals(ident)){
+                return var;
+            }
+
+        }
+        return null;
+    }
+
 }

@@ -8,65 +8,35 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface discordslListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link discordslParser#program}.
+	 * Enter a parse tree produced by {@link discordslParser#start}.
 	 * @param ctx the parse tree
 	 */
-	void enterProgram(discordslParser.ProgramContext ctx);
+	void enterStart(discordslParser.StartContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link discordslParser#program}.
+	 * Exit a parse tree produced by {@link discordslParser#start}.
 	 * @param ctx the parse tree
 	 */
-	void exitProgram(discordslParser.ProgramContext ctx);
+	void exitStart(discordslParser.StartContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link discordslParser#statement}.
+	 * Enter a parse tree produced by {@link discordslParser#statements}.
 	 * @param ctx the parse tree
 	 */
-	void enterStatement(discordslParser.StatementContext ctx);
+	void enterStatements(discordslParser.StatementsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link discordslParser#statement}.
+	 * Exit a parse tree produced by {@link discordslParser#statements}.
 	 * @param ctx the parse tree
 	 */
-	void exitStatement(discordslParser.StatementContext ctx);
+	void exitStatements(discordslParser.StatementsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link discordslParser#comparator}.
+	 * Enter a parse tree produced by {@link discordslParser#say}.
 	 * @param ctx the parse tree
 	 */
-	void enterComparator(discordslParser.ComparatorContext ctx);
+	void enterSay(discordslParser.SayContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link discordslParser#comparator}.
+	 * Exit a parse tree produced by {@link discordslParser#say}.
 	 * @param ctx the parse tree
 	 */
-	void exitComparator(discordslParser.ComparatorContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link discordslParser#if_statements}.
-	 * @param ctx the parse tree
-	 */
-	void enterIf_statements(discordslParser.If_statementsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link discordslParser#if_statements}.
-	 * @param ctx the parse tree
-	 */
-	void exitIf_statements(discordslParser.If_statementsContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link discordslParser#math_expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterMath_expr(discordslParser.Math_exprContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link discordslParser#math_expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitMath_expr(discordslParser.Math_exprContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link discordslParser#function}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunction(discordslParser.FunctionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link discordslParser#function}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunction(discordslParser.FunctionContext ctx);
+	void exitSay(discordslParser.SayContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link discordslParser#variable}.
 	 * @param ctx the parse tree
@@ -77,6 +47,26 @@ public interface discordslListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVariable(discordslParser.VariableContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#identifier}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdentifier(discordslParser.IdentifierContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#identifier}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdentifier(discordslParser.IdentifierContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#var_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterVar_value(discordslParser.Var_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#var_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitVar_value(discordslParser.Var_valueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link discordslParser#type}.
 	 * @param ctx the parse tree

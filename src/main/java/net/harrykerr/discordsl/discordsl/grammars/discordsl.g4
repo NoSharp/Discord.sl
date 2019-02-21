@@ -1,16 +1,22 @@
 grammar discordsl;
 
 
-program
-   : statement
-   | if_statements
-   ;
-
-statement
-    : variable
-    | math_expr
+start
+    : EVENT 'start ()' statements+
     ;
 
+statements
+    : variable
+    | say
+    ;
+
+say
+    : 'say' statements
+    | 'say' NORMALSTRING
+    | 'say' LetterOrDigit
+    ;
+
+/**
 comparator
     : Digits comparator Digits
     ;
@@ -19,7 +25,8 @@ if_statements
     :
     | IF comparator THEN statement ENDIF
     ;
-
+**/
+/**
 math_expr
     :
     | Digits operators Digits
@@ -29,19 +36,27 @@ function
     :
     | EVENT Letters THEN statement
     ;
+**/
 
 variable
-    :
-    | SET LetterOrDigit TO Digits AS type
-    | SET LetterOrDigit TO NORMALSTRING AS type
+    : SET identifier TO var_value AS type
+    | SET identifier TO var_value AS type
     ;
+
+identifier
+    : LetterOrDigit
+    ;
+
+var_value
+   : Digits
+   | NORMALSTRING
+   ;
 
 type
     :
     | 'string'
     | 'number'
     ;
-
 
 operators
     : '*'
