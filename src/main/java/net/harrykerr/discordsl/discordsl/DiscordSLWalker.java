@@ -1,18 +1,18 @@
 package net.harrykerr.discordsl.discordsl;
 
+import com.sun.deploy.util.StringUtils;
 import net.harrykerr.discordsl.discordsl.errors.TypeNotFound;
 import net.harrykerr.discordsl.discordsl.grammars.discordslListener;
 import net.harrykerr.discordsl.discordsl.grammars.discordslParser;
 import net.harrykerr.discordsl.discordsl.parsing.ParseMath;
 import net.harrykerr.discordsl.discordsl.types.Variable;
-import net.harrykerr.discordsl.discordsl.types.impl.NumberVariable;
-import net.harrykerr.discordsl.discordsl.types.impl.Settings;
-import net.harrykerr.discordsl.discordsl.types.impl.StringVariable;
+import net.harrykerr.discordsl.discordsl.types.impl.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DiscordSLWalker implements discordslListener {
@@ -121,6 +121,10 @@ public class DiscordSLWalker implements discordslListener {
                 }else if(type.type.equals("number")){
                     value = String.valueOf(type.value);
 
+                }else if(type.type.equals("FloatList")){
+                    value = StringUtils.join(((List<String>) type.value));
+                }else if(type.type.equals("StringList")){
+
                 }
 
             }
@@ -212,6 +216,38 @@ public class DiscordSLWalker implements discordslListener {
     }
 
     @Override
+    public void enterList_assign(discordslParser.List_assignContext ctx) {
+        String type = ctx.type().getText();
+        if(type.equals("number")){
+            //System.out.println("Got Here");
+            String text = ctx.identifier().LetterOrDigit().getText();
+            List<Float> value = parseFloats(ctx.NORMALSTRING().getText());
+            FloatListVariable vars = new FloatListVariable(value, text);
+            variables.add(vars);
+            //System.out.println(text);
+        }
+        else if(type.equals("string")) {
+            String text = ctx.identifier().LetterOrDigit().getText();
+            List<String> value = Arrays.asList(ctx.NORMALSTRING().getText().split(","));
+            StringListVariable vars = new StringListVariable(value, text);
+            variables.add(vars);
+        }
+        else{
+            try {
+                throw new TypeNotFound();
+            } catch (TypeNotFound ex){
+                ex.printStackTrace();
+            }
+
+        }
+    }
+
+    @Override
+    public void exitList_assign(discordslParser.List_assignContext ctx) {
+
+    }
+
+    @Override
     public void enterOperators(discordslParser.OperatorsContext ctx) {
 
     }
@@ -272,4 +308,14 @@ public class DiscordSLWalker implements discordslListener {
 
     }
 
+    public List<Float> parseFloats(String input){
+        List<Float> floatArrayList = new ArrayList<>();
+        for(String s : input.split(",")){
+            float res = Float.parseFloat(s);
+            floatArrayList.add(res);
+            //do whatever you want with the float
+        }
+        return floatArrayList;
+
+    }
 }

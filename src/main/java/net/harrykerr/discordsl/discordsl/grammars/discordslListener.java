@@ -148,6 +148,16 @@ public interface discordslListener extends ParseTreeListener {
 	 */
 	void exitType(discordslParser.TypeContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link discordslParser#list_assign}.
+	 * @param ctx the parse tree
+	 */
+	void enterList_assign(discordslParser.List_assignContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#list_assign}.
+	 * @param ctx the parse tree
+	 */
+	void exitList_assign(discordslParser.List_assignContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link discordslParser#operators}.
 	 * @param ctx the parse tree
 	 */

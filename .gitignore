@@ -1,9 +1,3 @@
-.gradle/
 .idea/
-gradle/
 out/
-build.gradle
-gradlew
-gradlew.bat
-settings.gradle
 vcs.xml

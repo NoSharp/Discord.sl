@@ -25,6 +25,7 @@ enable_help:
 status:
     NORMALSTRING
     ;
+
 command_prefix:
     NORMALSTRING
     ;
@@ -33,11 +34,11 @@ token:
     NORMALSTRING
     ;
 
-
 statements
     : variable
     | say
     | maths_equations
+    | list_assign
     ;
 
 say
@@ -94,6 +95,11 @@ type
     | 'string'
     | 'number'
     ;
+
+list_assign
+    :SET identifier TO NORMALSTRING 'which is list of type' type
+    ;
+
 
 operators
     : '*'

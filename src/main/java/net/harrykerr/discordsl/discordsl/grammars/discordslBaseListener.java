@@ -184,6 +184,18 @@ public class discordslBaseListener implements discordslListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterList_assign(discordslParser.List_assignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitList_assign(discordslParser.List_assignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterOperators(discordslParser.OperatorsContext ctx) { }
 	/**
 	 * {@inheritDoc}
