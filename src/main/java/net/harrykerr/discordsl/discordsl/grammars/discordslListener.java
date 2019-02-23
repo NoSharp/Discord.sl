@@ -78,6 +78,36 @@ public interface discordslListener extends ParseTreeListener {
 	 */
 	void exitToken(discordslParser.TokenContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link discordslParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatement(discordslParser.StatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatement(discordslParser.StatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#math_sum}.
+	 * @param ctx the parse tree
+	 */
+	void enterMath_sum(discordslParser.Math_sumContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#math_sum}.
+	 * @param ctx the parse tree
+	 */
+	void exitMath_sum(discordslParser.Math_sumContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#brackets}.
+	 * @param ctx the parse tree
+	 */
+	void enterBrackets(discordslParser.BracketsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#brackets}.
+	 * @param ctx the parse tree
+	 */
+	void exitBrackets(discordslParser.BracketsContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link discordslParser#statements}.
 	 * @param ctx the parse tree
 	 */
@@ -88,6 +118,46 @@ public interface discordslListener extends ParseTreeListener {
 	 */
 	void exitStatements(discordslParser.StatementsContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link discordslParser#math_sum_full}.
+	 * @param ctx the parse tree
+	 */
+	void enterMath_sum_full(discordslParser.Math_sum_fullContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#math_sum_full}.
+	 * @param ctx the parse tree
+	 */
+	void exitMath_sum_full(discordslParser.Math_sum_fullContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#math_sums}.
+	 * @param ctx the parse tree
+	 */
+	void enterMath_sums(discordslParser.Math_sumsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#math_sums}.
+	 * @param ctx the parse tree
+	 */
+	void exitMath_sums(discordslParser.Math_sumsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#event}.
+	 * @param ctx the parse tree
+	 */
+	void enterEvent(discordslParser.EventContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#event}.
+	 * @param ctx the parse tree
+	 */
+	void exitEvent(discordslParser.EventContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#event_param}.
+	 * @param ctx the parse tree
+	 */
+	void enterEvent_param(discordslParser.Event_paramContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#event_param}.
+	 * @param ctx the parse tree
+	 */
+	void exitEvent_param(discordslParser.Event_paramContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link discordslParser#say}.
 	 * @param ctx the parse tree
 	 */
@@ -97,16 +167,6 @@ public interface discordslListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSay(discordslParser.SayContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link discordslParser#maths_equations}.
-	 * @param ctx the parse tree
-	 */
-	void enterMaths_equations(discordslParser.Maths_equationsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link discordslParser#maths_equations}.
-	 * @param ctx the parse tree
-	 */
-	void exitMaths_equations(discordslParser.Maths_equationsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link discordslParser#variable}.
 	 * @param ctx the parse tree
@@ -127,6 +187,16 @@ public interface discordslListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIdentifier(discordslParser.IdentifierContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#event_name}.
+	 * @param ctx the parse tree
+	 */
+	void enterEvent_name(discordslParser.Event_nameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#event_name}.
+	 * @param ctx the parse tree
+	 */
+	void exitEvent_name(discordslParser.Event_nameContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link discordslParser#var_value}.
 	 * @param ctx the parse tree

@@ -3,7 +3,7 @@ grammar discordsl;
 start
     : 'settings:'
       settings
-      statements+
+      event+
     ;
 
 settings:
@@ -34,24 +34,52 @@ token:
     NORMALSTRING
     ;
 
-statements
+statement
     : variable
     | say
-    | maths_equations
     | list_assign
+    | math_sum_full
     ;
+
+math_sum
+    : math_sum operators+ math_sums
+    | math_sum operators+ Digits
+    | Digits operators+ math_sums
+    | Digits operators+ Digits
+    | brackets math_sum operators+ math_sums brackets
+    | brackets math_sum operators+ Digits brackets
+    | brackets Digits operators+ math_sums brackets
+    | brackets Digits operators+ Digits brackets
+    ;
+
+brackets
+    : '('
+    | ')'
+    ;
+
+statements
+    : statement+
+    ;
+
+math_sum_full
+    : math_sums
+    ;
+
+math_sums
+    : math_sum+
+    ;
+
+event
+    : EVENT event_name statements 'endevent';
+
+
+event_param
+    : LetterOrDigit ;
 
 say
     : 'say' statements
     | 'say' NORMALSTRING
     | 'say' LetterOrDigit
-    ;
-
-maths_equations
-    : Digits operators Digits
-    | maths_equations operators maths_equations
-    | Digits operators maths_equations
-    | maths_equations operators Digits
     ;
 
 
@@ -77,6 +105,7 @@ function
     ;
 **/
 
+
 variable
     : SET identifier TO var_value AS type
     ;
@@ -84,6 +113,13 @@ variable
 identifier
     : LetterOrDigit
     ;
+
+
+
+event_name
+    : LetterOrDigit
+    ;
+
 
 var_value
    : Digits
@@ -107,7 +143,11 @@ operators
     | '+'
     | '-'
     | '**'
+    | '('
+    | ')'
     ;
+
+
 
 comparators
 : '<'
@@ -146,6 +186,8 @@ NULL         :    'empty'       ;
 SAY          :    'say'         ;
 AS           :    'as'          ;
 SPEECH       :    '"'           ;
+LB           :    '('           ;
+RB           :    ')'           ;
 
 
 

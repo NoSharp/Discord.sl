@@ -8,17 +8,22 @@ import net.harrykerr.discordsl.discordsl.parsing.ParseMath;
 import net.harrykerr.discordsl.discordsl.types.Variable;
 import net.harrykerr.discordsl.discordsl.types.impl.*;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DiscordSLWalker implements discordslListener {
+public class DiscordSLListener implements discordslListener {
 
     List<Variable> variables = new ArrayList<>();
     Settings settings;
+    List<RuleContext> completedTasks = new ArrayList<>();
 
     @Override
     public void enterStart(discordslParser.StartContext ctx) {
@@ -87,6 +92,36 @@ public class DiscordSLWalker implements discordslListener {
     }
 
     @Override
+    public void enterStatement(discordslParser.StatementContext ctx) {
+
+    }
+
+    @Override
+    public void exitStatement(discordslParser.StatementContext ctx) {
+
+    }
+
+    @Override
+    public void enterMath_sum(discordslParser.Math_sumContext ctx) {
+
+    }
+
+    @Override
+    public void exitMath_sum(discordslParser.Math_sumContext ctx) {
+
+    }
+
+    @Override
+    public void enterBrackets(discordslParser.BracketsContext ctx) {
+
+    }
+
+    @Override
+    public void exitBrackets(discordslParser.BracketsContext ctx) {
+
+    }
+
+    @Override
     public void enterCommand_prefix(discordslParser.Command_prefixContext ctx) {
 
     }
@@ -107,6 +142,56 @@ public class DiscordSLWalker implements discordslListener {
     }
 
     @Override
+    public void enterMath_sum_full(discordslParser.Math_sum_fullContext ctx) {
+
+    }
+
+    @Override
+    public void exitMath_sum_full(discordslParser.Math_sum_fullContext ctx) {
+        try {
+
+            if(completedTasks.contains(ctx.getStart())) return;
+            ScriptEngineManager mgr = new ScriptEngineManager();
+            ScriptEngine engine = mgr.getEngineByName("JavaScript");
+
+
+            System.out.println(engine.eval(ctx.getText()));
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void enterMath_sums(discordslParser.Math_sumsContext ctx) {
+
+    }
+
+    @Override
+    public void exitMath_sums(discordslParser.Math_sumsContext ctx) {
+
+    }
+
+    @Override
+    public void enterEvent(discordslParser.EventContext ctx) {
+
+    }
+
+    @Override
+    public void exitEvent(discordslParser.EventContext ctx) {
+
+    }
+
+    @Override
+    public void enterEvent_param(discordslParser.Event_paramContext ctx) {
+
+    }
+
+    @Override
+    public void exitEvent_param(discordslParser.Event_paramContext ctx) {
+
+    }
+
+    @Override
     public void enterSay(discordslParser.SayContext ctx) {
         //System.out.println("ENTERED SAY.");
         boolean isNormal = ctx.LetterOrDigit() == null;
@@ -122,9 +207,10 @@ public class DiscordSLWalker implements discordslListener {
                     value = String.valueOf(type.value);
 
                 }else if(type.type.equals("FloatList")){
-                    value = StringUtils.join(((List<String>) type.value));
-                }else if(type.type.equals("StringList")){
+                    StringUtils.join((List<String>) type.value, value);
 
+                }else if(type.type.equals("StringList")){
+                    StringUtils.join((List<String>) type.value, value);
                 }
 
             }
@@ -141,17 +227,6 @@ public class DiscordSLWalker implements discordslListener {
 
     }
 
-    @Override
-    public void enterMaths_equations(discordslParser.Maths_equationsContext ctx) {
-
-        //ParseMath.result(ctx);
-
-    }
-
-    @Override
-    public void exitMaths_equations(discordslParser.Maths_equationsContext ctx) {
-
-    }
 
     @Override
     public void enterVariable(discordslParser.VariableContext ctx) {
@@ -192,6 +267,16 @@ public class DiscordSLWalker implements discordslListener {
 
     @Override
     public void exitIdentifier(discordslParser.IdentifierContext ctx) {
+
+    }
+
+    @Override
+    public void enterEvent_name(discordslParser.Event_nameContext ctx) {
+
+    }
+
+    @Override
+    public void exitEvent_name(discordslParser.Event_nameContext ctx) {
 
     }
 
@@ -318,4 +403,6 @@ public class DiscordSLWalker implements discordslListener {
         return floatArrayList;
 
     }
+
+
 }

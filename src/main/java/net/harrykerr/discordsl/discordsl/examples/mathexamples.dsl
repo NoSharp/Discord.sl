@@ -5,5 +5,8 @@ enable_help: "yes"
 status: "IDLE"
 game: "Blocc"
 
+on message
 
-say "Hello World"
+    (5 * 5 * 6 + 3 - 7) / 3
+
+endevent

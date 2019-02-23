@@ -18,13 +18,13 @@ public class Main {
         //System.out.println("WORKS");
         try {
             discordslLexer lexer = new discordslLexer(
-                    new ANTLRFileStream(EXAMPLES_PATH + "\\numbervar.dsl"));
+                    new ANTLRFileStream(EXAMPLES_PATH + "\\mathexamples.dsl"));
 
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             discordslParser parser = new discordslParser(tokens);
             ParseTree tree = parser.start();
             ParseTreeWalker walker = new ParseTreeWalker();
-            walker.walk((ParseTreeListener) new DiscordSLWalker(), tree);
+            walker.walk((ParseTreeListener) new DiscordSLListener(), tree);
         } catch (IOException e) {
             e.printStackTrace();
         }
