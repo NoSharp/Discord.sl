@@ -8,7 +8,10 @@ public class NumberVariable extends Variable {
 
     public String identity;
 
+    public NumberVariable(float value, String identity, String parent){
+        super(value, identity,parent,"number");
+    }
     public NumberVariable(float value, String identity){
-        super(value, identity, "number");
+        super(value, identity,"GLOBAL","number");
     }
 }

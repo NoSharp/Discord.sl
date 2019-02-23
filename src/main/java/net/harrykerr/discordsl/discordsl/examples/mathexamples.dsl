@@ -7,6 +7,7 @@ game: "Blocc"
 
 on message
 
-    (5 * 5 * 6 + 3 - 7) / 3
+   set bb to ((5 * 5 * 6 + 3 - 7) / 3)/90567856 as number
+   say bb
 
 endevent

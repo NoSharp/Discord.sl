@@ -124,6 +124,7 @@ event_name
 var_value
    : Digits
    | NORMALSTRING
+   | math_sum_full
    ;
 
 type
@@ -138,11 +139,11 @@ list_assign
 
 
 operators
-    : '*'
+    : '^'
     | '/'
     | '+'
     | '-'
-    | '**'
+    | '*'
     | '('
     | ')'
     ;

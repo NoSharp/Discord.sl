@@ -4,6 +4,10 @@ import net.harrykerr.discordsl.discordsl.grammars.discordslParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 public class ParseMath {
 
     public static String result(discordslParser.Math_sumContext ctx){
@@ -28,4 +32,17 @@ public class ParseMath {
 
 
     }
+
+    public static float interpretEquation(discordslParser.Math_sum_fullContext ctx){
+        try {
+            ScriptEngineManager mgr = new ScriptEngineManager();
+            ScriptEngine engine = mgr.getEngineByName("JavaScript");
+
+            return Float.parseFloat(engine.eval(ctx.getText()).toString());
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        }
+        return 0f;
+    }
+
 }

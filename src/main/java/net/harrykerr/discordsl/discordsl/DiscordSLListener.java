@@ -148,17 +148,7 @@ public class DiscordSLListener implements discordslListener {
 
     @Override
     public void exitMath_sum_full(discordslParser.Math_sum_fullContext ctx) {
-        try {
-
-            if(completedTasks.contains(ctx.getStart())) return;
-            ScriptEngineManager mgr = new ScriptEngineManager();
-            ScriptEngine engine = mgr.getEngineByName("JavaScript");
-
-
-            System.out.println(engine.eval(ctx.getText()));
-        } catch (ScriptException e) {
-            e.printStackTrace();
-        }
+        //System.out.println(ParseMath.interpretEquation(ctx));
     }
 
     @Override
@@ -196,6 +186,7 @@ public class DiscordSLListener implements discordslListener {
         //System.out.println("ENTERED SAY.");
         boolean isNormal = ctx.LetterOrDigit() == null;
         String value = "";
+
         if(!isNormal){
             //System.out.println(ctx.LetterOrDigit());
             if(doesVariableExist(ctx.LetterOrDigit().toString())) {
@@ -231,7 +222,16 @@ public class DiscordSLListener implements discordslListener {
     @Override
     public void enterVariable(discordslParser.VariableContext ctx) {
         String type = ctx.type().getText();
-        if(type.equals("number")){
+        if(ctx.var_value().math_sum_full() != null){
+            String text = ctx.identifier().LetterOrDigit().getText();
+            float value = ParseMath.interpretEquation(ctx.var_value().math_sum_full());
+
+            NumberVariable vars = new NumberVariable(value, text);
+            variables.add(vars);
+
+        }
+
+        else if(type.equals("number")){
             //System.out.println("Got Here");
             String text = ctx.identifier().LetterOrDigit().getText();
             float value = Float.parseFloat(ctx.var_value().Digits().getText());

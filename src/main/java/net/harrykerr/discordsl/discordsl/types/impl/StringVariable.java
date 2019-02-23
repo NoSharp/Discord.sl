@@ -9,8 +9,13 @@ public class StringVariable extends Variable {
 
     public String identity;
 
+    public StringVariable(String value, String identity, String parent){
+        super(value, identity, parent,"string");
+    }
+
+
     public StringVariable(String value, String identity){
-        super(value, identity, "string");
+        super(value, identity, "GLOBAL","string");
     }
 
 }

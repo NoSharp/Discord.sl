@@ -6,7 +6,10 @@ import java.util.List;
 
 public class FloatListVariable extends Variable {
 
+    public FloatListVariable(List<Float> value, String identity, String parent) {
+        super(value, identity,parent ,"FloatList");
+    }
     public FloatListVariable(List<Float> value, String identity) {
-        super(value, identity, "FloatList");
+        super(value, identity,"GLOBAL" ,"FloatList");
     }
 }
