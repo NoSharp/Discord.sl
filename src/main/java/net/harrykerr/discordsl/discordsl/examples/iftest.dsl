@@ -7,6 +7,9 @@ game: "Blocc"
 
 on message
 
-   set bb to ((5 * 5 * 6 + 3 - 7) / 3)/90567856 as number
+   if 5 == 4 then
+        say "Hello World"
+        say "Hello World"
+   endif
 
 endevent

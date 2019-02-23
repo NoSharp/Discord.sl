@@ -39,6 +39,7 @@ statement
     | say
     | list_assign
     | math_sum_full
+    | if_statement
     ;
 
 math_sum
@@ -82,6 +83,27 @@ say
     | 'say' LetterOrDigit
     ;
 
+if_operand
+    : NORMALSTRING
+    | Digits
+    | math_sum_full
+    | statement
+    ;
+
+condition
+    : if_operand comparators if_operand
+    ;
+
+
+
+if_statement
+    :  IF condition THEN conditional_statement ELSE conditional_statement ENDIF
+    |  IF condition THEN conditional_statement ENDIF
+    ;
+
+send_message
+    : 'send' Letters TO 'channel' Letters
+    ;
 
 /**
 comparator
@@ -105,6 +127,9 @@ function
     ;
 **/
 
+conditional_statement
+    : statements
+    ;
 
 variable
     : SET identifier TO var_value AS type

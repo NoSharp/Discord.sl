@@ -18,7 +18,7 @@ public class Main {
         //System.out.println("WORKS");
         try {
             discordslLexer lexer = new discordslLexer(
-                    new ANTLRFileStream(EXAMPLES_PATH + "\\mathexamples.dsl"));
+                    new ANTLRFileStream(EXAMPLES_PATH + "\\iftest.dsl"));
 
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             discordslParser parser = new discordslParser(tokens);

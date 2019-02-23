@@ -168,6 +168,56 @@ public interface discordslListener extends ParseTreeListener {
 	 */
 	void exitSay(discordslParser.SayContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link discordslParser#if_operand}.
+	 * @param ctx the parse tree
+	 */
+	void enterIf_operand(discordslParser.If_operandContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#if_operand}.
+	 * @param ctx the parse tree
+	 */
+	void exitIf_operand(discordslParser.If_operandContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondition(discordslParser.ConditionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondition(discordslParser.ConditionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#if_statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIf_statement(discordslParser.If_statementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#if_statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIf_statement(discordslParser.If_statementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#send_message}.
+	 * @param ctx the parse tree
+	 */
+	void enterSend_message(discordslParser.Send_messageContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#send_message}.
+	 * @param ctx the parse tree
+	 */
+	void exitSend_message(discordslParser.Send_messageContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link discordslParser#conditional_statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterConditional_statement(discordslParser.Conditional_statementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link discordslParser#conditional_statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitConditional_statement(discordslParser.Conditional_statementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link discordslParser#variable}.
 	 * @param ctx the parse tree
 	 */

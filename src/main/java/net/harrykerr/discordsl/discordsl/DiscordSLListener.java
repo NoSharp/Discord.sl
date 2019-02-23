@@ -5,6 +5,7 @@ import net.harrykerr.discordsl.discordsl.errors.TypeNotFound;
 import net.harrykerr.discordsl.discordsl.grammars.discordslListener;
 import net.harrykerr.discordsl.discordsl.grammars.discordslParser;
 import net.harrykerr.discordsl.discordsl.parsing.ParseMath;
+import net.harrykerr.discordsl.discordsl.parsing.evalutation.IfStatementEval;
 import net.harrykerr.discordsl.discordsl.types.Variable;
 import net.harrykerr.discordsl.discordsl.types.impl.*;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -133,7 +134,10 @@ public class DiscordSLListener implements discordslListener {
 
     @Override
     public void enterStatements(discordslParser.StatementsContext ctx) {
+        if (ctx.getChild(1).getText().startsWith("say")){
 
+
+        }
     }
 
     @Override
@@ -183,33 +187,12 @@ public class DiscordSLListener implements discordslListener {
 
     @Override
     public void enterSay(discordslParser.SayContext ctx) {
-        //System.out.println("ENTERED SAY.");
-        boolean isNormal = ctx.LetterOrDigit() == null;
-        String value = "";
-
-        if(!isNormal){
-            //System.out.println(ctx.LetterOrDigit());
-            if(doesVariableExist(ctx.LetterOrDigit().toString())) {
-                Variable type = variableByName(ctx.LetterOrDigit().getText());
-                if(type.type.equals("string")){
-                    value = String.valueOf(type.value).substring(1,String.valueOf(type.value).length()-1);
-
-                }else if(type.type.equals("number")){
-                    value = String.valueOf(type.value);
-
-                }else if(type.type.equals("FloatList")){
-                    StringUtils.join((List<String>) type.value, value);
-
-                }else if(type.type.equals("StringList")){
-                    StringUtils.join((List<String>) type.value, value);
-                }
-
-            }
-            System.out.println(value);
-        }else{
-            System.out.println( ctx.NORMALSTRING().getText().replaceAll("\\\\", "")
-                    .substring(1,String.valueOf(ctx.NORMALSTRING().getText()).length()-1));
+        if(discordslParser.ruleNames[ctx.getParent().getParent().getParent().getParent().getRuleIndex()].equals("if_statement")){
+            System.out.println("Inside If Statement");
+            return;
         }
+
+
 
     }
 
@@ -218,6 +201,57 @@ public class DiscordSLListener implements discordslListener {
 
     }
 
+    @Override
+    public void enterIf_operand(discordslParser.If_operandContext ctx) {
+
+    }
+
+    @Override
+    public void exitIf_operand(discordslParser.If_operandContext ctx) {
+
+    }
+
+    @Override
+    public void enterCondition(discordslParser.ConditionContext ctx) {
+
+
+
+    }
+
+    @Override
+    public void exitCondition(discordslParser.ConditionContext ctx) {
+
+    }
+
+    @Override
+    public void enterIf_statement(discordslParser.If_statementContext ctx) {
+        doIf(ctx);
+    }
+
+    @Override
+    public void exitIf_statement(discordslParser.If_statementContext ctx) {
+
+    }
+
+    @Override
+    public void enterSend_message(discordslParser.Send_messageContext ctx) {
+
+    }
+
+    @Override
+    public void exitSend_message(discordslParser.Send_messageContext ctx) {
+
+    }
+
+    @Override
+    public void enterConditional_statement(discordslParser.Conditional_statementContext ctx) {
+
+    }
+
+    @Override
+    public void exitConditional_statement(discordslParser.Conditional_statementContext ctx) {
+
+    }
 
     @Override
     public void enterVariable(discordslParser.VariableContext ctx) {
@@ -404,5 +438,38 @@ public class DiscordSLListener implements discordslListener {
 
     }
 
+    public void doIf(discordslParser.If_statementContext ctx){
+
+        discordslParser.If_operandContext left = ctx.condition().if_operand(0);
+        discordslParser.If_operandContext right = ctx.condition().if_operand(1);
+        discordslParser.ComparatorsContext comp = ctx.condition().comparators();
+        System.out.println(ctx.getChild(3).getText());
+        if(left.NORMALSTRING() != null){
+            if(IfStatementEval.evalutateConditionString(left.getText(), right.getText(), comp.getText())){
+                enterStatements(ctx.conditional_statement(0).statements());
+                System.out.println("Success");
+            }
+            else{
+                if(ctx.ELSE() != null){
+                    enterStatements(ctx.conditional_statement(1).statements());
+                }
+
+            }
+
+        }
+        if(left.Digits() != null){
+            if(IfStatementEval.evalutateNumberCondition(Integer.parseInt(left.getText()), Integer.parseInt(right.getText()), comp.getText())){
+                enterStatements(ctx.conditional_statement(0).statements());
+                System.out.println("Success");
+            }
+            else{
+                if(ctx.ELSE() != null){
+                    enterStatements(ctx.conditional_statement(1).statements());
+                }
+
+            }
+
+        }
+    }
 
 }
